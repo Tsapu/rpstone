@@ -83,15 +83,6 @@ listener.subscribe((message) => {
 		}
 	}
 
-	// const { rightHandParts: hand1 } = persons[0];
-	// const { leftHandParts: hand2 } = persons[0]; // this would be replaced with the person #2 right hand
-
-	
-	// if (gameIsGood) {
-	// 	gesture2 = predictGesture(hand2);
-	// }
-
-
 	// if (gesture !== '') {
 	// 	console.log(gesture);
 	// 	const message = prepMsg(gesture);

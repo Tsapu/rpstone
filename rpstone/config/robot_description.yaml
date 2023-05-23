@@ -1,0 +1,34 @@
+Robots:
+- robot_name: "robotont_sim_1"
+  description: "RViz based light simulation of Robotont"
+  reliability: 0.8
+  urdf:
+    package_name: "robotont_description"
+    executable: "urdf/robotont_base.urdf.xacro"
+    args: "prefix:=__ABS_NAMESPACE__/"
+  navigation:
+    controller:
+      package_name: "rpstone"
+      executable: "robotont_sim_controller.launch"
+      args: "no_static_map:=true"
+    driver:
+      package_name: "rpstone" 
+      executable: "robotont_sim_driver.launch"
+      args: "spawn_at_x:=0.5"
+
+- robot_name: "robotont_sim_2"
+  description: "RViz based light simulation of Robotont"
+  reliability: 0.8
+  urdf:
+    package_name: "robotont_description"
+    executable: "urdf/robotont_base.urdf.xacro"
+    args: "prefix:=__ABS_NAMESPACE__/"
+  navigation:
+    controller:
+      package_name: "rpstone"
+      executable: "robotont_sim_controller.launch"
+      args: "no_static_map:=true"
+    driver:
+      package_name: "rpstone" 
+      executable: "robotont_sim_driver.launch"
+      args: "spawn_at_x:=-0.5"

@@ -1,0 +1,58 @@
+{
+    "graph_name": "robotont_sim_1_initialize",
+    "graph_description": "Initializes and visualizes a robot",
+    "graph_state": 1,
+    "umrf_actions": [
+        {
+            "name": "TaInitializeRobot",
+            "package_name": "ta_initialize_robot",
+            "description": "Initializes a robot",
+            "id": 0,
+            "state": 0,
+            "effect": "asynchronous",
+            "input_parameters": {
+                "robot_name": {
+                    "pvf_type": "string",
+                    "pvf_value": "robotont_sim_1"
+                }
+            },
+            "output_parameters": {
+                "robot_name": {
+                    "pvf_type": "string"
+                },
+                "robot_description": {
+                    "pvf_type": "string"
+                }
+            },
+            "children": [
+                {
+                    "name": "TaVisualizeRobot",
+                    "id": 0
+                }
+            ]
+        },
+        {
+            "name": "TaVisualizeRobot",
+            "package_name": "ta_visualize_robot",
+            "description": "Visualizes a robot",
+            "id": 0,
+            "state": 0,
+            "effect": "asynchronous",
+            "input_parameters": {
+                "robot_name": {
+                    "pvf_type": "string"
+                },
+                "robot_description": {
+                    "pvf_type": "string"
+                }
+            },
+            "parents": [
+                {
+                    "name": "TaInitializeRobot",
+                    "id": 0,
+                    "required": true
+                }
+            ]
+        }
+    ]
+}

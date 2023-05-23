@@ -5,6 +5,8 @@
   <arg name="extra_wake_words" default="everybody"/>
   <arg name="actions_path" default="$(find rpstone)/../temoto_actions" />
   <arg name="component_config_base_path" default="$(find rpstone)/config" />
+  <arg name="robot_config_base_path" default="$(find rpstone)/config" />
+  <arg name="viz_plugin_config_base_path" default="$(find rpstone)/config" />
   <arg name="respawn_nodes" default="true" />
  
   <env name="ROSCONSOLE_FORMAT" value="[${function}] ${message}" />
@@ -23,6 +25,20 @@
           output="screen" 
           respawn="$(arg respawn_nodes)"
           args="--config-base-path $(arg component_config_base_path)"/>
+
+    <node name="temoto_robot_manager" 
+          pkg="temoto_robot_manager" 
+          type="temoto_robot_manager" 
+          output="screen" 
+          respawn="$(arg respawn_nodes)"
+          args="--config-base-path $(arg robot_config_base_path)"/>
+
+    <node pkg="temoto_visualization_manager" 
+          type="temoto_visualization_manager" 
+          name="temoto_visualization_manager" 
+          output="screen"
+          respawn="$(arg respawn_nodes)"
+          args="--config-base-path $(arg viz_plugin_config_base_path)"/>
 
     <node name="temoto_action_engine" 
           pkg="temoto_action_engine" 
