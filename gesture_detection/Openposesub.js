@@ -1,6 +1,8 @@
-//
-// Parses the hand keypoints and returns best guess for the gesture
-//
+// import '@tensorflow/tfjs-backend-webgl';
+
+// import the FingerPose gesture estimator + our predefined gestures
+// import { GestureEstimator } from 'fingerpose';
+// import { RockGesture, PaperGesture, ScissorsGesture } from './Gestures';
 
 const { GestureEstimator } = require('fingerpose');
 const { RockGesture, PaperGesture, ScissorsGesture } = require('./Gestures');
@@ -30,31 +32,71 @@ const publisher = new ROSLIB.Topic({
 });
 
 
-const prepMsg = (gesture) => {
+const prepMsg = (gesture1, gesture2='None') => {
+
 	const message = new ROSLIB.Message({
-		player1_gesture: '',
-		player2_gesture: ''
+		player1_gesture: '', // player one is always assumed to be on the left
+		player2_gesture: '' // player two is on the right
 	});
-	message.player1_gesture = gesture;
+	//message.header.stamp = new ROSLIB.Time();
+	message.player1_gesture = gesture1;
+	message.player2_gesture = gesture2;
 	return message;
 }
 
 listener.subscribe((message) => {
 	const { persons } = message;
+	// assume two persons only, ignore everything else, hope nothing comes from the background
+	let msg, gesture1, gesture2, hand1, hand2, x_pos1, x_pos2, hand1_leftest;
+
 	if (persons.length === 0) {
 		return;
+	} else if (persons.length === 1) {
+	  hand1 = persons[0].rightHandParts;
+		hand2 = persons[0].leftHandParts;
+		gesture1 = predictGesture(hand1);
+		gesture2 = predictGesture(hand2);
+		msg = prepMsg(gesture1, gesture2);
+		if (gesture1 !== '' || gesture2 !== '') {
+			publisher.publish(msg);
+		}
+		
+	} else if (persons.length === 2) {
+	  hand1 = persons[0].rightHandParts;
+		hand2 = persons[1].rightHandParts;
+	  
+		x_pos1 = hand1.reduce((sum, pixel) => sum + pixel.x, 0) / hand1.length;
+		x_pos2 = hand2.reduce((sum, pixel) => sum + pixel.x, 0) / hand2.length;
+
+		gesture1 = predictGesture(hand1);
+		gesture2 = predictGesture(hand2);
+
+		hand1_leftest = (x_pos2 > x_pos1)
+
+		if (hand1_leftest) {
+			msg = prepMsg(gesture1, gesture2);
+		} else {
+			msg = prepMsg(gesture2, gesture1);
+		}
+		if (gesture1 !== '' || gesture2 !== '') {
+			publisher.publish(msg);
+		}
 	}
 
-	const { rightHandParts: hand1 } = persons[0];
-	const { leftHandParts: hand2 } = persons[0]; // this would be replaced with the person #2 right hand
+	// const { rightHandParts: hand1 } = persons[0];
+	// const { leftHandParts: hand2 } = persons[0]; // this would be replaced with the person #2 right hand
 
-	const gesture = predictGesture(hand2);
+	
+	// if (gameIsGood) {
+	// 	gesture2 = predictGesture(hand2);
+	// }
 
-	if (gesture !== '') {
-		console.log(gesture);
-		const message = prepMsg(gesture);
-		publisher.publish(message);
-	}
+
+	// if (gesture !== '') {
+	// 	console.log(gesture);
+	// 	const message = prepMsg(gesture);
+	// 	publisher.publish(message);
+	// }
 });
 
 const predictGesture = (hand) => {
@@ -76,10 +118,15 @@ const predictGesture = (hand) => {
 		const gestureResult = gestureEstimations.gestures.reduce((p, c) => { 
 				return (p.confidence > c.confidence) ? p : c;
 		});
+		
+		// logic for publishing a new gesture
+		// ...
 
 		return gestureResult.name;
 	}
+
 	return '';
+	
 }
 
 function extractLandmarks(hand) {
@@ -92,4 +139,8 @@ function extractLandmarks(hand) {
 		});
 	}
 	return landmarks
+}
+
+function calculateAverageYPixelCoordinates(handPosePixels) {
+  handPosePixels.length ? handPosePixels.reduce((sum, pixel) => sum + pixel.y, 0) / handPosePixels.length : 0;
 }

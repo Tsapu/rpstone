@@ -11,7 +11,9 @@ The gesture_detection is done in nodejs, because the classifier lib works nicely
 ## Requirements
 - ROS Noetic
 - Nodejs v16
-- TeMoto (coming soon)
+- [Openpose](https://github.com/CMU-Perceptual-Computing-Lab/openpose)
+- [ros_openpose](https://github.com/ravijo/ros_openpose)
+- [TeMoto](https://github.com/temoto-framework/temoto/wiki) (coming soon)
 - rosbridge (`sudo apt install ros-noetic-rosbridge-server`)
 
 ### setup
