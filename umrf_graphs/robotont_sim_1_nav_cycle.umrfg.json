@@ -18,111 +18,18 @@
                     },
                     "y": {
                         "pvf_type": "number",
-                        "pvf_value": 1.0
+                        "pvf_value": 0
                     },
                     "yaw": {
                         "pvf_type": "number",
-                        "pvf_value": 1.57
+                        "pvf_value": 0
                     }
                 },
                 "robot_name": {
                     "pvf_type": "string",
                     "pvf_value": "robotont_sim_1"
                 }
-            },
-            "children": [
-                {
-                    "name": "TaNavigateRobot",
-                    "id": 1
-                }
-            ],
-            "parents": [
-                {
-                    "name": "TaNavigateRobot",
-                    "id": 2,
-                    "required": false
-                }
-            ]
-        },
-        {
-            "name": "TaNavigateRobot",
-            "package_name": "ta_navigate_robot",
-            "description": "robotont navigation",
-            "id": 1,
-            "effect": "synchronous",
-            "input_parameters": {
-                "pose_2d": {
-                    "x": {
-                        "pvf_type": "number",
-                        "pvf_value": -1.0
-                    },
-                    "y": {
-                        "pvf_type": "number",
-                        "pvf_value": 1
-                    },
-                    "yaw": {
-                        "pvf_type": "number",
-                        "pvf_value": 0.0
-                    }
-                },
-                "robot_name": {
-                    "pvf_type": "string",
-                    "pvf_value": "robotont_sim_1"
-                }
-            },
-            "children": [
-                {
-                    "name": "TaNavigateRobot",
-                    "id": 2
-                }
-            ],
-            "parents": [
-                {
-                    "name": "TaNavigateRobot",
-                    "id": 0,
-                    "required": true
-                }
-            ]
-        },
-        {
-            "name": "TaNavigateRobot",
-            "package_name": "ta_navigate_robot",
-            "description": "robotont navigation",
-            "id": 2,
-            "effect": "synchronous",
-            "input_parameters": {
-                "pose_2d": {
-                    "x": {
-                        "pvf_type": "number",
-                        "pvf_value": 0.0
-                    },
-                    "y": {
-                        "pvf_type": "number",
-                        "pvf_value": 0.0
-                    },
-                    "yaw": {
-                        "pvf_type": "number",
-                        "pvf_value": 0.0
-                    }
-                },
-                "robot_name": {
-                    "pvf_type": "string",
-                    "pvf_value": "robotont_sim_1"
-                }
-            },
-            "children": [
-                {
-                    "name": "TaNavigateRobot",
-                    "id": 0
-                }
-            ],
-            "parents": [
-                {
-                    "name": "TaNavigateRobot",
-                    "id": 1,
-                    "required": true
-                }
-            ]
+            }
         }
     ]
 }

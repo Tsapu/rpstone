@@ -1,1 +1,77 @@
 Components:
+- component_name: "Camera image"
+  component_type: "camera"
+  package_name: "usb_cam"
+  executable:  "usb_cam-test.launch"
+  output_topics:
+    camera_data: "usb_cam/image_raw"
+    camera_data_compressed: "usb_cam/image_raw/compressed"
+    camera_info: "usb_cam/camera_info"
+  required_parameters:
+    frame_id: "camera_link"
+    video_device: "/dev/video0"
+
+- component_name: "Hand detector"
+  component_type: "openpose"
+  package_name: "ros_openpose"
+  executable:  "run.launch"
+  output_topics:
+    keypoints: "/frame"
+  required_parameters:
+    camera: "nodepth"
+
+- component_name: "Gesture classifier"
+  component_type: "gesture_classifier"
+  package_name: "gesture_detector"
+  executable:  "classifier_nodepth.launch"
+  output_topics:
+    gestures: "/rps_gestures"
+
+# - component_name: "Robot camera"
+#   component_type: "2d_camera"
+#   package_name: "rpstone"
+#   executable:  "usb_cam_remappable.launch"
+#   output_topics:
+#     camera_data: "usb_cam/image_raw"
+#     camera_data_compressed: "usb_cam/image_raw/compressed"
+#     camera_info: "usb_cam/camera_info"
+#   required_parameters:
+#     frame_id: "camera_link"
+#     video_device: "/dev/video0"
+
+# - component_name: "keyboard twist msg publisher"
+#   component_type: "joystick_twist"
+#   package_name: "tutorials_temoto_config"
+#   executable:  "keyboard_twist.launch"
+#   input_topics:
+#     twist_topic: "cmd_vel"
+
+# - component_name: "Velocity publisher"
+#   component_type: "vel_pub"
+#   package_name: "tutorials_temoto_config"
+#   executable:  "component_string_0"
+#   output_topics:
+#     data_type_0: "cs_0_pub_0"
+#     data_type_1: "cs_0_pub_1"
+
+# - component_name: "String spammer 1"
+#   component_type: "cs_test_1"
+#   package_name: "tutorials_temoto_config"
+#   executable:  "component_string_1"
+#   input_topics:
+#     data_type_0: "cs_1_sub_0"
+#     data_type_1: "cs_1_sub_1"
+#   output_topics:
+#     data_type_2: "cs_1_pub_0"
+#     data_type_3: "cs_1_pub_1"
+
+# - component_name: "String spammer 2"
+#   component_type: "cs_test_2"
+#   package_name: "tutorials_temoto_config"
+#   executable:  "component_string_2"
+#   input_topics:
+#     data_type_2: "cs_2_sub_0"
+#     data_type_3: "cs_2_sub_1"
+#   output_topics:
+#     data_type_4: "cs_2_pub_0"
+#     data_type_5: "cs_2_pub_1"

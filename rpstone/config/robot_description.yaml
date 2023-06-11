@@ -14,7 +14,7 @@ Robots:
     driver:
       package_name: "rpstone" 
       executable: "robotont_sim_driver.launch"
-      args: "spawn_at_x:=0.5"
+      args: "spawn_at_x:=-0.5 spawn_at_y:=-0.5"
 
 - robot_name: "robotont_sim_2"
   description: "RViz based light simulation of Robotont"
@@ -31,4 +31,5 @@ Robots:
     driver:
       package_name: "rpstone" 
       executable: "robotont_sim_driver.launch"
-      args: "spawn_at_x:=-0.5"
+      args:
+        "spawn_at_x:=-0.5 spawn_at_y:=0.5"

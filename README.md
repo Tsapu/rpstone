@@ -22,10 +22,17 @@ The gesture_detection is done in nodejs, because the classifier lib works nicely
 cd gesture_detection && npm install
 ```
 
+A) With OpenPose installed and usb_cam running:
+```bash
+roslaunch ros_openpose run.launch camera:=nodepth
+```
+B) Use a rosbag containing openpose keypoints:
 ```bash
 # Bag that contains /frame messages containing hand keypoints (Openpose)
-rosbag play --loop bags/rps.bag
+rosbag play --loop rpstone/bags/rps.bag
 ```
+
+### gesture classifier node:
 
 ```bash
 roslaunch rosbridge_server rosbridge_websocket.launch 

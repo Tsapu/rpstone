@@ -1,0 +1,10 @@
+<launch>
+  <include file="$(find rpstone)/launch/temoto.launch" />
+  <arg name="umrf_robot_file" default="robotont_sim_1_initialize.umrfg.json"/>
+  <arg name="umrf_graph_file" default="robotont_sim_cycle.umrfg.json"/>
+  <arg name="nss" default="rpstone"/>
+  <!-- <node name="keyboard_twist" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen" launch-prefix="xterm -e"/> -->
+  <!-- <node name="rpstone" pkg="rpstone" type="rpmoto.cpp" output="screen" launch-prefix="xterm -e"> -->
+  <!-- <node name="sdhfdgsfsd" pkg="temoto_action_engine" type="umrf_graph_publisher" args="$(find rpstone)/umrf_graphs/$(arg umrf_robot_file) $(arg nss)"/>  -->
+  <!-- <node name="s43tddsfds" pkg="temoto_action_engine" type="umrf_graph_publisher" args="$(find rpstone)/umrf_graphs/$(arg umrf_graph_file) $(arg nss)"/>  -->
+</launch>

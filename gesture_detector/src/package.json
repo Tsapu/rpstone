@@ -1,0 +1,13 @@
+{
+  "name": "rpstone",
+  "version": "1.0.0",
+  "description": "Rock Paper Scissors game with a robot referee",
+  "scripts": {
+    "start": "node Openposesub.js"
+  },
+  "dependencies": {
+    "fingerpose": "^0.1.0",
+    "roslib": "^1.3.0"
+  },
+  "author": "Lightning Sharks"
+}

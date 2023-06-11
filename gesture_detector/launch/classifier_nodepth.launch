@@ -1,0 +1,15 @@
+<launch>
+  <!-- <include file="$(find ros_openpose)/launch/run.launch">
+    <arg name="camera" default="nodepth" />
+  </include> -->
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
+  <node pkg="aliencontrol" type="aliencontrol" name="gesture_classifier">
+    <param name="cmd" value="node $(find gesture_detector)/src/Openposesub.js"/>
+  </node>
+</launch>
+
+<!-- This does nothing here, could not override so must be modified in config_nodepth directly  -->
+<!--
+<arg name="color_topic" default="/usb_cam/image_raw" /> 
+<arg name="pub_topic" default="/frame" />
+<arg name="openpose_args" value="-.-model_folder $(env HOME)/openpose/models/ -.-hand -.-net_resolution -1x128" /> -->
