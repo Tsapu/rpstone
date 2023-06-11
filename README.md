@@ -19,25 +19,41 @@ The gesture_detection is done in nodejs, because the classifier lib works nicely
 ### setup
 
 ```bash
-cd gesture_detection && npm install
+cd gesture_detector/src && npm install
+catkin build
 ```
 
-A) With OpenPose installed and usb_cam running:
+### usage example
+```bash
+roslaunch usb_cam usb_cam-test.launch
+```
+
 ```bash
 roslaunch ros_openpose run.launch camera:=nodepth
 ```
-B) Use a rosbag containing openpose keypoints:
+
 ```bash
-# Bag that contains /frame messages containing hand keypoints (Openpose)
+roslaunch gesture_detector classifier_nodepth.launch
+```
+
+### example results from a rosbag:
+
+```bash
+# Bag that contains /frame messages containing hand keypoints (Openpose) and /rps_gestures from the classifer
 rosbag play --loop rpstone/bags/rps.bag
 ```
 
-### gesture classifier node:
 
-```bash
-roslaunch rosbridge_server rosbridge_websocket.launch 
-```
+<br/>
 
-```bash
-cd gesture_detection && npm run start
-```
+![Scrapapa2](./doc/arch.png)
+![Scrapapa3](./doc/pipe.png)
+
+## Todo (updated: 11.06)
+- [x] Add gesture classifier node
+- [ ] Implement component pipe
+
+
+<br/>
+<br/>
+__________________________________________________________________________________________
