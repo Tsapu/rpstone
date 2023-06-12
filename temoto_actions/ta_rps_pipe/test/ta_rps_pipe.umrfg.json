@@ -1,0 +1,14 @@
+{
+    "graph_name": "ta_rps_pipe",
+    "graph_description": "",
+    "graph_state": 1,
+    "umrf_actions": [
+        {
+            "name": "TaRpsPipe",
+            "package_name": "ta_rps_pipe",
+            "id": 0,
+            "state": 0,
+            "effect": "synchronous"
+        }
+    ]
+}

@@ -1,0 +1,5 @@
+{
+    "name": "TaRpsPipe",
+    "package_name": "ta_rps_pipe",
+    "effect": "synchronous"
+}
