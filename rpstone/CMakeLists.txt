@@ -35,3 +35,6 @@ include_directories(
 
 add_executable(hand_detector src/rpstone.cpp)
 target_link_libraries(hand_detector ${catkin_LIBRARIES})
+
+add_executable(gesture_confirmation_node src/gesture_confirmation_node.cpp)
+target_link_libraries(gesture_confirmation_node ${catkin_LIBRARIES})

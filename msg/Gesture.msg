@@ -1,0 +1,4 @@
+std_msgs/Header header
+
+string player1_gesture
+string player2_gesture
