@@ -1,13 +1,16 @@
 Components:
-- component_name: "Camera image"
-  component_type: "camera"
-  package_name: "usb_cam"
-  executable:  "usb_cam-test.launch"
+- component_name: "Any camera on video_device"
+  component_type: "2d_camera"
+  package_name: "rpstone"
+  executable:  "usb_cam_remappable.launch"
   output_topics:
-    camera_data: "usb_cam/image_raw"
-    camera_data_compressed: "usb_cam/image_raw/compressed"
-    camera_info: "usb_cam/camera_info"
+    camera_data: "/usb_cam/image_raw"
+    camera_data_compressed: "/usb_cam/image_raw/compressed"
+    camera_info: "/usb_cam/camera_info"
   required_parameters:
+    camera_data: "/usb_cam/image_raw"
+    camera_data_compressed: "/usb_cam/image_raw/compressed"
+    camera_info: "/usb_cam/camera_info"
     frame_id: "camera_link"
     video_device: "/dev/video0"
 
@@ -27,17 +30,17 @@ Components:
   output_topics:
     gestures: "/rps_gestures"
 
-# - component_name: "Robot camera"
-#   component_type: "2d_camera"
-#   package_name: "rpstone"
-#   executable:  "usb_cam_remappable.launch"
-#   output_topics:
-#     camera_data: "usb_cam/image_raw"
-#     camera_data_compressed: "usb_cam/image_raw/compressed"
-#     camera_info: "usb_cam/camera_info"
-#   required_parameters:
-#     frame_id: "camera_link"
-#     video_device: "/dev/video0"
+- component_name: "Camera image"
+  component_type: "camera"
+  package_name: "usb_cam"
+  executable:  "usb_cam-test.launch"
+  output_topics:
+    camera_data: "usb_cam/image_raw"
+    camera_data_compressed: "usb_cam/image_raw/compressed"
+    camera_info: "usb_cam/camera_info"
+  required_parameters:
+    frame_id: "camera_link"
+    video_device: "/dev/video0"
 
 # - component_name: "keyboard twist msg publisher"
 #   component_type: "joystick_twist"

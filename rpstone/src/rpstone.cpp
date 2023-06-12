@@ -16,7 +16,7 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "hand_detector");
   ros::NodeHandle nh;
 
-  ros::Subscriber sub = nh.subscribe<rpstone::Gesture>("/frame", 10, gestureCallback);
+  ros::Subscriber sub = nh.subscribe<rpstone::Gesture>("/rps_gestures", 10, gestureCallback);
 
   ros::spin();
 

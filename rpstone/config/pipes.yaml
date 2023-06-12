@@ -1,6 +1,6 @@
 rps_game:
 - method:
-  - segment_type: "camera"
+  - segment_type: "2d_camera"
     output_topic_types:
       # - /usb_cam/image_raw
       - camera_data
