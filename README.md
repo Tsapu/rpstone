@@ -1,4 +1,4 @@
-# RPSTONE - the ref's gonna stone you
+# RPSTONE
 
 ## What is this?
 
@@ -43,6 +43,10 @@ roslaunch gesture_detector classifier_nodepth.launch
 rosbag play --loop rpstone/bags/rps.bag
 ```
 
+## Ok, let's temoto
+```
+roslaunch rpstone temoto.launch temoto_namespace:=rpstone
+```
 
 <br/>
 
