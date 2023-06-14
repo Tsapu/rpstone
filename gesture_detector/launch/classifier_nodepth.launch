@@ -2,9 +2,12 @@
   <!-- <include file="$(find ros_openpose)/launch/run.launch">
     <arg name="camera" default="nodepth" />
   </include> -->
+  <arg name="keypoints" default="dddd" />
+  <arg name="gestures" default="tripled" />
   <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
   <node pkg="aliencontrol" type="aliencontrol" name="gesture_classifier">
-    <param name="cmd" value="node $(find gesture_detector)/src/Openposesub.js"/>
+  <!-- in the node program pub goes first, sub goes second -->
+    <param name="cmd" value="node $(find gesture_detector)/src/Openposesub.js $(arg gestures) $(arg keypoints)"/>
   </node>
 </launch>
 

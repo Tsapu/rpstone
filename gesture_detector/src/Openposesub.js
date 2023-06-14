@@ -15,7 +15,23 @@ const gestureEstimator = new GestureEstimator(knownGestures);
 // import ROSLIB from 'roslib';
 const ROSLIB = require('roslib');
 
-let ros;
+let ros,
+	  publish_topic,
+		subscribe_topic;
+
+const args = process.argv.slice(2);
+if (args.length == 0) {
+	publish_topic = '/rps_gestures';
+	subscribe_topic = '/frame';
+} else if (args.length == 1) {
+	publish_topic = args[0]; // rename the publish topic to the argument that was passed
+	subscribe_topic = '/frame';
+} else {
+	// rename both of the default publish and subscribe topics to the arguments that were passed
+	publish_topic = args[0];
+	subscribe_topic = args[1];
+	console.log(`publish_topic: ${publish_topic}, subscribe_topic: ${subscribe_topic}`);
+}
 
 const establishConnection = () => {
   ros = new ROSLIB.Ros({
@@ -41,14 +57,14 @@ establishConnection();
 
 const listener = new ROSLIB.Topic({
 	ros: ros,
-	name: '/frame',
+	name: subscribe_topic,
 	messageType: 'ros_openpose/Frame',
 });
 
 // Create a publisher for the rps_gestures topic
 const publisher = new ROSLIB.Topic({
   ros: ros,
-  name: '/rps_gestures',
+  name: publish_topic,
   messageType: 'rpstone/Gesture'
 });
 

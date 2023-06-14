@@ -2,15 +2,14 @@ rps_game:
 - method:
   - segment_type: "2d_camera"
     output_topic_types:
-      # - /usb_cam/image_raw
       - camera_data
+
   - segment_type: "openpose"
     input_topic_types:
-      # - /usb_cam/image_raw
       - camera_data
     output_topic_types:
-      # - /frame
       - keypoints
+      
   - segment_type: "gesture_classifier"
     input_topic_types:
       - keypoints

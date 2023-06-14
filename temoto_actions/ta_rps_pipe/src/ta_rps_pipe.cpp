@@ -48,6 +48,7 @@ void initializeTemotoAction()
  * Function that gets invoked when the action is executed (REQUIRED)
  */
 void executeTemotoAction()
+try
 {
   // getInputParameters();
   
@@ -61,9 +62,16 @@ void executeTemotoAction()
   // ros::Subscriber test_2a_subscriber_1 = n_.subscribe(test_2a_topic_t4, 10, &TaComponentPipeTest::test2ACallback1, this);
   ros::Subscriber test_2a_subscriber_2 = n_.subscribe(test_2a_topic_t5, 10, &TaRpsPipe::test2ACallback1, this);
 
-  ros::Duration(10).sleep();
+  while (actionOk())
+  {
+    ros::Duration(0.5).sleep();
+  }
 
   // setOutputParameters();
+}
+catch(temoto_core::error::ErrorStack& error_stack)
+{
+  std::cout << error_stack << std::endl;
 }
 
 void test2ACallback1(const rpstone::Gesture::ConstPtr& msg)

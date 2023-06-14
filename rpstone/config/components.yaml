@@ -4,31 +4,39 @@ Components:
   package_name: "rpstone"
   executable:  "usb_cam_remappable.launch"
   output_topics:
-    camera_data: "/usb_cam/image_raw"
-    camera_data_compressed: "/usb_cam/image_raw/compressed"
-    camera_info: "/usb_cam/camera_info"
+    camera_data: "usb_cam/image_raw"
+    camera_data_compressed: "usb_cam/image_raw/compressed"
+    camera_info: "usb_cam/camera_info"
   required_parameters:
-    camera_data: "/usb_cam/image_raw"
-    camera_data_compressed: "/usb_cam/image_raw/compressed"
-    camera_info: "/usb_cam/camera_info"
+    # camera_data: "usb_cam/image_raw"
+    # camera_data_compressed: "usb_cam/image_raw/compressed"
+    # camera_info: "usb_cam/camera_info"
     frame_id: "camera_link"
     video_device: "/dev/video0"
 
 - component_name: "Hand detector"
   component_type: "openpose"
-  package_name: "ros_openpose"
+  package_name: "rpstone"
   executable:  "run.launch"
+  input_topics:
+    camera_data: "usb_cam/image_raw"
   output_topics:
-    keypoints: "/frame"
+    keypoints: "frame"  # is this passed as a parameter?
   required_parameters:
+    # camera_data: "/usb_cam/image_raw"
     camera: "nodepth"
 
 - component_name: "Gesture classifier"
   component_type: "gesture_classifier"
   package_name: "gesture_detector"
   executable:  "classifier_nodepth.launch"
+  input_topics:
+    keypoints: "frame"
   output_topics:
-    gestures: "/rps_gestures"
+    gestures: "rps_gestures"
+  # required_parameters:
+  #   keypoints: "frame"
+  #   gestures: "rps_gestures"
 
 - component_name: "Camera image"
   component_type: "camera"
