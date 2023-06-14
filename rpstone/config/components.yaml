@@ -24,6 +24,7 @@ Components:
     keypoints: "frame"  # is this passed as a parameter?
   required_parameters:
     # camera_data: "/usb_cam/image_raw"
+    print: "false"
     camera: "nodepth"
 
 - component_name: "Gesture classifier"

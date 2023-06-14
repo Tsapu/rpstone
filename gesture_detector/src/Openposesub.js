@@ -30,31 +30,33 @@ if (args.length == 0) {
 	// rename both of the default publish and subscribe topics to the arguments that were passed
 	publish_topic = args[0];
 	subscribe_topic = args[1];
-	console.log(`publish_topic: ${publish_topic}, subscribe_topic: ${subscribe_topic}`);
+	// console.log(`publish_topic: ${publish_topic}, subscribe_topic: ${subscribe_topic}`);
 }
 
 const establishConnection = () => {
   ros = new ROSLIB.Ros({
-		url: 'ws://localhost:9090',
-		name: 'rpsjs_node'
+		url: 'ws://localhost:9090'
 	});
 	ros.on('connection', () => {
-    console.log('Connected to ROS');
+    console.error('Connected to ROS');
+		startNode();
     // Add your ROS-related code here
   });
   ros.on('error', (error) => {
     console.error('Error connecting to ROS');
     // Retry the connection after a certain delay
-    setTimeout(establishConnection, 1000);
+    // setTimeout(establishConnection, 1000);
   });
   ros.on('close', () => {
     console.log('Connection to ROS closed');
     // Retry the connection after a certain delay
-    setTimeout(establishConnection, 1000);
+    // setTimeout(establishConnection, 1000);
   });
 }
-establishConnection();
+setTimeout(establishConnection, 5000);
+// establishConnection();
 
+const startNode = () => {
 const listener = new ROSLIB.Topic({
 	ros: ros,
 	name: subscribe_topic,
@@ -81,12 +83,19 @@ const prepMsg = (gesture1, gesture2='None') => {
 	return message;
 }
 
-listener.subscribe((message) => {
+listener.subscribe(async (message) => {
 	const { persons } = message;
 	// assume two persons only, ignore everything else, hope nothing comes from the background
 	let msg, gesture1, gesture2, hand1, hand2, x_pos1, x_pos2, hand1_leftest;
 
+	// msg = prepMsg("", "");
+	// publisher.publish(msg);
+	// await new Promise(resolve => setTimeout(resolve, 200));
+
 	if (persons.length === 0) {
+		msg = prepMsg("", "");
+	  publisher.publish(msg);
+	  await new Promise(resolve => setTimeout(resolve, 100));
 		return;
 	} else if (persons.length === 1) {
 	  hand1 = persons[0].rightHandParts;
@@ -126,6 +135,7 @@ listener.subscribe((message) => {
 	// 	publisher.publish(message);
 	// }
 });
+}
 
 const predictGesture = (hand) => {
 

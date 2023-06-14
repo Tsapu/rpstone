@@ -2,8 +2,10 @@
   <!-- <include file="$(find ros_openpose)/launch/run.launch">
     <arg name="camera" default="nodepth" />
   </include> -->
-  <arg name="keypoints" default="dddd" />
-  <arg name="gestures" default="tripled" />
+  <!-- <arg name="keypoints" default="/pipe_1_at_rpstone/segment_1/keypoints" />
+  <arg name="gestures" default="/pipe_1_at_rpstone/segment_2/gestures" /> -->
+  <arg name="keypoints" default="/random_thing" />
+  <arg name="gestures" default="/random_thing_2" />
   <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
   <node pkg="aliencontrol" type="aliencontrol" name="gesture_classifier">
   <!-- in the node program pub goes first, sub goes second -->
