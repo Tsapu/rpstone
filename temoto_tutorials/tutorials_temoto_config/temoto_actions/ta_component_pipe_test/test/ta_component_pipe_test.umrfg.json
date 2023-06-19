@@ -1,0 +1,13 @@
+{
+    "graph_name": "ta_component_pipe_test",
+    "graph_description": "",
+    "graph_state": 1,
+    "umrf_actions": [
+        {
+            "name": "TaComponentPipeTest",
+            "package_name": "ta_component_pipe_test",
+            "id": 0,
+            "effect": "synchronous"
+        }
+    ]
+}

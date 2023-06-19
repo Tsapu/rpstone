@@ -1,0 +1,30 @@
+{
+    "graph_name": "ta_robot2_viz",
+    "graph_description": "",
+    "graph_state": 1,
+    "umrf_actions": [
+        {
+            "name": "TaRobot2Viz",
+            "package_name": "ta_robot2_viz",
+            "description": "Visualize robot2",
+            "id": 0,
+            "state": 0,
+            "effect": "asynchronous",
+            "input_parameters": {
+                "robot2_description": {
+                    "pvf_type": "string",
+                    "pvf_value": "MODIFY THIS FIELD"
+                },
+                "robot2_name": {
+                    "pvf_type": "string",
+                    "pvf_value": "MODIFY THIS FIELD"
+                }
+            },
+            "output_parameters": {
+                "robot2_name": {
+                    "pvf_type": "string"
+                }
+            }
+        }
+    ]
+}

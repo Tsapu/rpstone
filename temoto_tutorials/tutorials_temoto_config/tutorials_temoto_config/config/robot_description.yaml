@@ -1,0 +1,85 @@
+Robots:
+- robot_name: "vaultbot_sim"
+  description: "NRG vaultbot simulation"
+  reliability: 0.8
+  urdf:
+    package_name: "husky_dual_ur5_description"
+    executable: "urdf/husky_dual_ur5.urdf.xacro"
+  navigation:
+    controller:
+      package_name: "husky_dual_ur5_config"
+      executable: "husky_dual_ur5_nav_controller.launch"
+      global_planner: "navfn/NavfnROS"
+      local_planner: "base_local_planner/TrajectoryPlannerROS"
+      scan_topic: "scan"
+      pose_topic: "amcl_pose"
+    driver:
+      package_name: "husky_dual_ur5_config" 
+      executable: "husky_dual_ur5_nav_driver.launch"
+      odom_topic: "odometry/filtered"
+      cmd_vel_topic: "cmd_vel"
+  manipulation:
+    controller:
+      package_name: "husky_dual_ur5_config" 
+      executable: "husky_dual_ur5_manip_controller.launch"
+      args: "debug:=false"
+      planning_groups: ["l_arm", "r_arm"]
+    driver:
+      package_name: "husky_dual_ur5_config" 
+      executable: "husky_dual_ur5_manip_driver.launch"
+
+- robot_name: "robotont_sim_1"
+  description: "RViz based light simulation of Robotont"
+  reliability: 0.8
+  urdf:
+    package_name: "robotont_description"
+    executable: "urdf/robotont_base.urdf.xacro"
+    args: "prefix:=__ABS_NAMESPACE__/"
+  navigation:
+    controller:
+      package_name: "tutorials_temoto_config"
+      executable: "robotont_sim_controller.launch"
+      args: "no_static_map:=true"
+    driver:
+      package_name: "tutorials_temoto_config" 
+      executable: "robotont_sim_driver.launch"
+      # args: "spawn_at_x:=0.5"
+      args: "spawn_at_y:=0.5"
+      
+
+- robot_name: "robotont_sim_2"
+  description: "RViz based light simulation of Robotont"
+  reliability: 0.8
+  urdf:
+    package_name: "robotont_description"
+    executable: "urdf/robotont_base.urdf.xacro"
+    args: "prefix:=__ABS_NAMESPACE__/"
+  navigation:
+    controller:
+      package_name: "tutorials_temoto_config"
+      executable: "robotont_sim_controller.launch"
+      args: "no_static_map:=true"
+    driver:
+      package_name: "tutorials_temoto_config" 
+      executable: "robotont_sim_driver.launch"
+      # args: "spawn_at_x:=-0.5"
+      args: "spawn_at_y:=-0.5"
+
+- robot_name: "robotont"
+  description: "robotont"
+  reliability: 0.8
+  urdf:
+    package_name: "robotont_nuc_description"
+    executable: "urdf/robotont_realsense.urdf.xacro"
+  navigation:
+    controller:
+      package_name: "robotont_demos"
+      executable: "2d_slam.launch"
+      global_planner: "navfn/NavfnROS"
+      local_planner: "teb_local_planner/TebLocalPlannerROS"
+      scan_topic: "scan"
+    driver:
+      package_name: "robotont_support" 
+      executable: "robotont_driver.launch"
+      odom_topic: "odom"
+      cmd_vel_topic: "cmd_vel"

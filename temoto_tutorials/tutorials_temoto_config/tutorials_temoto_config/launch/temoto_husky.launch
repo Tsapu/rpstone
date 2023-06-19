@@ -1,0 +1,81 @@
+<launch>
+  <arg name="temoto_namespace" default="tutorials_temoto_config"/>
+  <env name="TEMOTO_NAMESPACE" value="$(arg temoto_namespace)" />
+  
+  <arg name="extra_wake_words" default="everybody"/>
+  <arg name="actions_path" default="$(find tutorials_temoto_config)/../temoto_actions" />
+  <arg name="component_config_base_path" default="$(find tutorials_temoto_config)/config" />
+  <arg name="robot_config_base_path" default="$(find tutorials_temoto_config)/config" />
+  <arg name="respawn_nodes" default="true" />
+
+  <env name="ROSCONSOLE_FORMAT" value="${message}" />
+  <env name="ROSCONSOLE_CONFIG_FILE" value="$(find tutorials_temoto_config)/config/console.config" />
+
+  <group ns="$(arg temoto_namespace)/vaultbot_sim">
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+      <arg name="world_name" value="$(find husky_dual_ur5_config)/worlds/clearpath_playpen.world"/>
+      <arg name="paused" value="true"/>
+      <arg name="use_sim_time" value="true"/>
+      <arg name="gui" value="true"/>
+      <arg name="headless" value="false"/>
+      <arg name="debug" value="false"/>
+    </include>
+
+    <param name="robot_description" command="$(find xacro)/xacro '$(find husky_dual_ur5_description)/urdf/husky_dual_ur5.urdf.xacro'"/>
+
+    <!-- Spawn robot in gazebo -->
+    <node name="spawn_husky_model" pkg="gazebo_ros" type="spawn_model"
+      args="-x 0.0
+            -y 0.0
+            -z 0.0
+            -Y 0.0
+            -unpause
+            -urdf
+            -param robot_description
+            -model vaultbot
+            -gazebo_namespace gazebo
+            -J r_ur5_arm_shoulder_pan_joint -1.57 
+            -J r_ur5_arm_shoulder_lift_joint -0.1745 
+            -J r_ur5_arm_elbow_joint -2.1
+            -J r_ur5_arm_wrist_1_joint -1.57 
+            -J r_ur5_arm_wrist_2_joint 0.0 
+            -J r_ur5_arm_wrist_3_joint 0.0 
+            -J l_ur5_arm_shoulder_pan_joint -1.57
+            -J l_ur5_arm_shoulder_lift_joint -0.1745
+            -J l_ur5_arm_elbow_joint -2.1
+            -J l_ur5_arm_wrist_1_joint -1.57
+            -J l_ur5_arm_wrist_2_joint 0.0
+            -J l_ur5_arm_wrist_3_joint 0.0"/>
+  </group>
+
+  <group ns="$(arg temoto_namespace)">
+    <node name="temoto_process_manager" 
+          pkg="temoto_process_manager" 
+          type="temoto_process_manager" 
+          output="screen"
+          respawn="$(arg respawn_nodes)"/>
+
+    <node name="temoto_component_manager" 
+          pkg="temoto_component_manager" 
+          type="temoto_component_manager" 
+          output="screen" 
+          respawn="$(arg respawn_nodes)"
+          args="--config-base-path $(arg component_config_base_path)"/>
+
+    <node name="temoto_robot_manager" 
+          pkg="temoto_robot_manager" 
+          type="temoto_robot_manager" 
+          output="screen" 
+          respawn="$(arg respawn_nodes)"
+          args="--config-base-path $(arg robot_config_base_path)"/>
+    
+    <node name="temoto_action_engine" 
+          pkg="temoto_action_engine" 
+          type="action_engine_node" 
+          output="screen" 
+          respawn="$(arg respawn_nodes)"
+          args="--wake-word $(arg temoto_namespace) 
+                --actions-path $(arg actions_path) 
+                --extra-wake-words $(arg extra_wake_words)" />
+  </group>
+</launch>
