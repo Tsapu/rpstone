@@ -1,3 +1,6 @@
 [submodule "aliencontrol"]
 	path = aliencontrol
 	url = https://github.com/acschaefer/aliencontrol.git
+[submodule "temoto"]
+	path = temoto
+	url = ./temoto
