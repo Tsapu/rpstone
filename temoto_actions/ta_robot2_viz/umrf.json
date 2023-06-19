@@ -1,0 +1,19 @@
+{
+    "name": "TaRobot2Viz",
+    "package_name": "ta_robot2_viz",
+    "description": "Visualize robot2",
+    "effect": "asynchronous",
+    "input_parameters": {
+        "robot2_description": {
+            "pvf_type": "string"
+        },
+        "robot2_name": {
+            "pvf_type": "string"
+        }
+    },
+    "output_parameters": {
+        "robot2_name": {
+            "pvf_type": "string"
+        }
+    }
+}
