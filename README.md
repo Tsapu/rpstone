@@ -44,9 +44,16 @@ rosbag play --loop rpstone/bags/rps.bag
 ```
 
 ## Ok, let's temoto
-```
+```bash
 roslaunch rpstone temoto.launch temoto_namespace:=rpstone
 ```
+
+Launch the component pipe:
+```bash
+rosrun temoto_action_engine umrf_graph_publisher ta_rps_pipe.umrfg.json rpstone
+```
+
+To work with a rosbag instead of OpenPose, plase make sure that the main pipe method at `rpstone/config/pipes.yaml` is commented out which will make the program run from a rosbag
 
 <br/>
 
@@ -55,7 +62,7 @@ roslaunch rpstone temoto.launch temoto_namespace:=rpstone
 
 ## Todo (updated: 11.06)
 - [x] Add gesture classifier node
-- [ ] Implement component pipe
+- [x] Implement component pipe
 
 
 <br/>
