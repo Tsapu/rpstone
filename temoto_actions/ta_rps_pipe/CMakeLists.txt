@@ -19,6 +19,7 @@ find_package(catkin REQUIRED COMPONENTS
   temoto_core
   temoto_component_manager
   rpstone
+  std_msgs
 )
 
 # add_message_files(
