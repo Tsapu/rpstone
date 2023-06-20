@@ -39,6 +39,13 @@ Components:
   #   keypoints: "frame"
   #   gestures: "rps_gestures"
 
+- component_name: "rosbag gesture publisher"
+  component_type: "bag_gestures"
+  package_name: "rpstone"
+  executable:  "bag_gestures.launch"
+  output_topics:
+    gestures: "rps_gestures"
+
 - component_name: "Camera image"
   component_type: "camera"
   package_name: "usb_cam"

@@ -15,6 +15,8 @@ const gestureEstimator = new GestureEstimator(knownGestures);
 // import ROSLIB from 'roslib';
 const ROSLIB = require('roslib');
 
+// const SINGLE_MODE = process.argv[2] === "single";
+
 let ros,
 	  publish_topic,
 		subscribe_topic;
