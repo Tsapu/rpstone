@@ -15,6 +15,8 @@ The gesture_detection is done in nodejs, because the classifier lib works nicely
 - [ros_openpose](https://github.com/ravijo/ros_openpose)
 - [TeMoto](https://github.com/temoto-framework/temoto/wiki) (coming soon)
 - rosbridge (`sudo apt install ros-noetic-rosbridge-server`)
+- sox
+- libsox-fmt-mp3
 
 ### setup
 

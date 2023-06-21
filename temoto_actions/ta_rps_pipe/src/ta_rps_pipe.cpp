@@ -22,6 +22,8 @@
 #include "ta_rps_pipe/temoto_action.h"
 #include <temoto_component_manager/component_manager_interface.h>
 #include "temoto_process_manager/process_manager_interface.hpp"
+#include <ros/package.h>
+#include <map>
 #include "rpstone/Gesture.h"
 #include <std_msgs/String.h>
 // #include <ros_openpose/Frame.h>
@@ -70,10 +72,38 @@ try
 
   // load twist node:
   pmi_.loadRosResource("rpstone", "rptwist");
+  // ros::Duration(2).sleep();
+  // temoto_process_manager::LoadProcess load_sound_msg = pmi_.loadSysResource("play", sound_path + "countdown.mp3");
 
   while (actionOk())
   {
-    ros::Duration(0.5).sleep();
+    // play countdown:
+    // game_time 
+    if (WINNER_FOUND) {
+      TEMOTO_INFO_STREAM("WINNER FOUND, NEW ROUND!");
+      if (player_nr == 1) {
+        TEMOTO_INFO_STREAM("WINNER == 1");
+        temoto_process_manager::LoadProcess load_win_sound_1 = pmi_.loadSysResource("play", sound_path + "p1_wins.mp3");
+        ros::Duration(2.5).sleep();
+        pmi_.unloadResource(load_win_sound_1);
+      } else if (player_nr == 2) {
+        TEMOTO_INFO_STREAM("WINNER == 2");
+        temoto_process_manager::LoadProcess load_win_sound_2 = pmi_.loadSysResource("play", sound_path + "p2_wins.mp3");
+        ros::Duration(2.5).sleep();
+        pmi_.unloadResource(load_win_sound_2);
+      } else {
+        TEMOTO_INFO_STREAM("WINNER " << player_nr);
+      }
+      WINNER_FOUND = false;
+      player_nr = 999;
+      GAME_ACTIVE = false;
+      temoto_process_manager::LoadProcess load_sound_msg = pmi_.loadSysResource("play", sound_path + "countdown.mp3");
+      ros::Duration(3.5).sleep();
+      pmi_.unloadResource(load_sound_msg);
+      GAME_ACTIVE = true;
+    }
+    // sleep
+    ros::Duration(0.3).sleep();
   }
 
   // setOutputParameters();
@@ -93,6 +123,9 @@ void gesture_cb(const rpstone::Gesture::ConstPtr& msg)
   
   // TEMOTO_INFO_STREAM("Player 1 Gesture: " << player1Gesture.c_str());
   // TEMOTO_INFO_STREAM("Player 2 Gesture: " << player2Gesture.c_str());
+  if (!GAME_ACTIVE) {
+    return;
+  }
 
   if (player1Gesture == "" && player2Gesture != "")
   {
@@ -144,7 +177,7 @@ void gesture_cb(const rpstone::Gesture::ConstPtr& msg)
   {
     winnerVector.push_back(winner);
 
-    if (winnerVector.size() == 11)
+    if (winnerVector.size() == 7)
     {
       int count_player1 = 0;
       int count_player2 = 0;
@@ -164,10 +197,14 @@ void gesture_cb(const rpstone::Gesture::ConstPtr& msg)
       if (count_player1 > count_player2)
       {
         win_player.data = "player1";
+        WINNER_FOUND = true;
+        player_nr = 1;
       }
       else
       {
         win_player.data = "player2";
+        WINNER_FOUND = true;
+        player_nr = 2;
       }
 
       TEMOTO_INFO_STREAM("Winner: " << win_player.data.c_str());
@@ -204,9 +241,16 @@ ros::Publisher pub_ = n_.advertise<std_msgs::String>("winning_player", 10);
 
 vector<string> winnerVector;
 std_msgs::String win_player;
+std::string sound_path = ros::package::getPath("rpstone") + "/sounds/";
+// temoto_process_manager::LoadProcess load_sound_msg;
+temoto_process_manager::LoadProcess load_win_sound;
+
+bool GAME_ACTIVE = false;
+bool WINNER_FOUND = true;
+int player_nr = 999;
 
 // Initialize process manager interface
-temoto_process_manager::ProcessManagerInterface pmi_;
+// temoto_process_manager::ProcessManagerInterface pmi_;
 // Create the component manager interface
 temoto_component_manager::ComponentManagerInterface cmi_;
 
