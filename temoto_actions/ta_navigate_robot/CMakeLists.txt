@@ -48,3 +48,6 @@ target_link_libraries(${PROJECT_NAME}
 class_loader_hide_library_symbols(${PROJECT_NAME})
 
 add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
+
+# add_executable(ta_drive src/ta_drive_robot.cpp)
+# target_link_libraries(ta_drive ${catkin_LIBRARIES})

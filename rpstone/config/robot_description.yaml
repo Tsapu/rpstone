@@ -33,3 +33,22 @@ Robots:
       executable: "robotont_sim_driver.launch"
       args:
         "spawn_at_x:=-0.5 spawn_at_y:=0.5"
+
+- robot_name: "robotont_11"
+  description: "robotont_11"
+  reliability: 0.8
+  urdf:
+    package_name: "robotont_nuc_description"
+    executable: "urdf/robotont_realsense.urdf.xacro"
+  navigation:
+    controller:
+      package_name: "robotont_demos"
+      executable: "2d_slam.launch"
+      global_planner: "navfn/NavfnROS"
+      local_planner: "teb_local_planner/TebLocalPlannerROS"
+      scan_topic: "scan"
+    driver:
+      package_name: "robotont_support" 
+      executable: "robotont_bringup.launch"
+      odom_topic: "odom"
+      cmd_vel_topic: "cmd_vel"

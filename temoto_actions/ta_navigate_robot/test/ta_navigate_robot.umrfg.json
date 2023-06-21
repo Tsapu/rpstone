@@ -9,16 +9,12 @@
             "id": 0,
             "effect": "synchronous",
             "input_parameters": {
-                "pose_2d": {
+                "in_param_linear_velocity": {
                     "x": {
                         "pvf_type": "number",
-                        "pvf_value": 5.0
+                        "pvf_value": 1.0
                     },
                     "y": {
-                        "pvf_type": "number",
-                        "pvf_value": 2.0
-                    },
-                    "yaw": {
                         "pvf_type": "number",
                         "pvf_value": 0.0
                     }

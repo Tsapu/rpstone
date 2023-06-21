@@ -8,15 +8,15 @@ public:
     GameLogic()
     {
         sub_ = nh_.subscribe("winning_player", 1, &GameLogic::sub_callback, this);
-        pub1_ = nh_.advertise<geometry_msgs::Twist>("robotont/robotont_sim_1/cmd_vel", 1);
-        pub2_ = nh_.advertise<geometry_msgs::Twist>("robotont/robotont_sim_2/cmd_vel", 1);
+        pub1_ = nh_.advertise<geometry_msgs::Twist>("robotont_sim_1/cmd_vel", 1);
+        pub2_ = nh_.advertise<geometry_msgs::Twist>("robotont_sim_2/cmd_vel", 1);
     }
 
     void sub_callback(const std_msgs::String::ConstPtr& msg)
     {
         if (msg->data == "player1")
         {
-            twist1_cmd.linear.x = 0.1;
+            twist1_cmd.linear.x = 0.4;
             twist2_cmd.linear.x = 0.0;
 
             pub1_.publish(twist1_cmd);
@@ -26,7 +26,7 @@ public:
         else if (msg->data == "player2")
         {
             twist1_cmd.linear.x = 0.0;
-            twist2_cmd.linear.x = 0.1;
+            twist2_cmd.linear.x = 0.4;
 
             pub1_.publish(twist1_cmd);
             pub2_.publish(twist2_cmd);

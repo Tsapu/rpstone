@@ -6,11 +6,14 @@
         "robot_name": {
             "pvf_type": "string"
         },
-        "in_param_linear_velocity": {
+        "pose_2d": {
             "x": {
                 "pvf_type": "number"
             },
             "y": {
+                "pvf_type": "number"
+            },
+            "yaw": {
                 "pvf_type": "number"
             }
         }

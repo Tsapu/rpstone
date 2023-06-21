@@ -13,7 +13,7 @@
             "input_parameters": {
                 "robot_name": {
                     "pvf_type": "string",
-                    "pvf_value": "vaultbot_sim"
+                    "pvf_value": "robotont-11"
                 }
             },
             "output_parameters": {

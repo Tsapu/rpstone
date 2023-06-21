@@ -1,20 +1,20 @@
 rps_game:
-# - method:
-#   - segment_type: "2d_camera"
-#     output_topic_types:
-#       - camera_data
+- method:
+  - segment_type: "2d_camera"
+    output_topic_types:
+      - camera_data
 
-#   - segment_type: "openpose"
-#     input_topic_types:
-#       - camera_data
-#     output_topic_types:
-#       - keypoints
+  - segment_type: "openpose"
+    input_topic_types:
+      - camera_data
+    output_topic_types:
+      - keypoints
       
-#   - segment_type: "gesture_classifier"
-#     input_topic_types:
-#       - keypoints
-#     output_topic_types:
-#       - gestures
+  - segment_type: "gesture_classifier"
+    input_topic_types:
+      - keypoints
+    output_topic_types:
+      - gestures
 
 - method:
   - segment_type: "bag_gestures"

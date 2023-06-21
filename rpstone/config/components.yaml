@@ -23,7 +23,6 @@ Components:
   output_topics:
     keypoints: "frame"  # is this passed as a parameter?
   required_parameters:
-    # camera_data: "/usb_cam/image_raw"
     print: "false"
     camera: "nodepth"
 
@@ -45,6 +44,8 @@ Components:
   executable:  "bag_gestures.launch"
   output_topics:
     gestures: "rps_gestures"
+
+
 
 - component_name: "Camera image"
   component_type: "camera"

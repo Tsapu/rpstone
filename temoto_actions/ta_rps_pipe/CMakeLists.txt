@@ -18,6 +18,7 @@ find_package(catkin REQUIRED COMPONENTS
   temoto_action_engine
   temoto_core
   temoto_component_manager
+  temoto_process_manager
   rpstone
 )
 
