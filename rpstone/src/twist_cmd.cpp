@@ -16,7 +16,7 @@ public:
     {
         if (msg->data == "player1")
         {
-            twist1_cmd.linear.x = 0.4;
+            twist1_cmd.linear.x = 0.5;
             twist2_cmd.linear.x = 0.0;
 
             pub1_.publish(twist1_cmd);
@@ -26,7 +26,7 @@ public:
         else if (msg->data == "player2")
         {
             twist1_cmd.linear.x = 0.0;
-            twist2_cmd.linear.x = 0.4;
+            twist2_cmd.linear.x = 0.5;
 
             pub1_.publish(twist1_cmd);
             pub2_.publish(twist2_cmd);

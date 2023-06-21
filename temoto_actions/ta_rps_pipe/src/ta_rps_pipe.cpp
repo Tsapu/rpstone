@@ -91,19 +91,22 @@ try
         temoto_process_manager::LoadProcess load_win_sound_2 = pmi_.loadSysResource("play", sound_path + "p2_wins.mp3");
         ros::Duration(2.5).sleep();
         pmi_.unloadResource(load_win_sound_2);
-      } else {
-        TEMOTO_INFO_STREAM("WINNER " << player_nr);
+      } else if (player_nr == 3) {
+        TEMOTO_INFO_STREAM("DRAW");
+        temoto_process_manager::LoadProcess load_draw = pmi_.loadSysResource("play", sound_path + "trumpet.wav");
+        ros::Duration(1).sleep();
+        pmi_.unloadResource(load_draw);
       }
       WINNER_FOUND = false;
       player_nr = 999;
       GAME_ACTIVE = false;
       temoto_process_manager::LoadProcess load_sound_msg = pmi_.loadSysResource("play", sound_path + "countdown.mp3");
-      ros::Duration(3.5).sleep();
+      ros::Duration(2.8).sleep();
       pmi_.unloadResource(load_sound_msg);
       GAME_ACTIVE = true;
     }
     // sleep
-    ros::Duration(0.3).sleep();
+    ros::Duration(0.02).sleep();
   }
 
   // setOutputParameters();
@@ -130,6 +133,11 @@ void gesture_cb(const rpstone::Gesture::ConstPtr& msg)
   if (player1Gesture == "" && player2Gesture != "")
   {
 
+  }
+
+  else if (player1Gesture == player2Gesture && player1Gesture != "")
+  {
+    winner = "draw";
   }
 
   else if (player1Gesture == "rock")
@@ -173,20 +181,23 @@ void gesture_cb(const rpstone::Gesture::ConstPtr& msg)
     winner = "player1";
   }
 
-  if (winner == "player1" || winner == "player2")
+  if (winner == "player1" || winner == "player2" || winner == "draw")
   {
     winnerVector.push_back(winner);
 
-    if (winnerVector.size() == 7)
+    if (winnerVector.size() == 5)
     {
       int count_player1 = 0;
       int count_player2 = 0;
+      int draw_count = 0;
 
       for (int i = 0; i < winnerVector.size(); i++)
       {
         if (winnerVector[i] == "player1")
         {
           count_player1++;
+        } else if (winnerVector[i] == "draw") {
+          draw_count++;
         }
         else
         {
@@ -194,7 +205,13 @@ void gesture_cb(const rpstone::Gesture::ConstPtr& msg)
         }
       }
 
-      if (count_player1 > count_player2)
+      if (draw_count >= 4) { 
+        WINNER_FOUND = true;
+        player_nr = 3;
+        win_player.data = "draw";
+      }
+
+      else if (count_player1 > count_player2)
       {
         win_player.data = "player1";
         WINNER_FOUND = true;
