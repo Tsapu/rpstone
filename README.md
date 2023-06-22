@@ -12,14 +12,18 @@ An ancient game with a twist. The referee is a robot, and you must accept its ju
 
 So Openpose cannot detect *only* the hand keypoints without providing bounding boxes (aditional hand detector on top), so it needs the whole body (of both players). Mediapipe is nice, but it cannot detect multiple persons by default (?).
 
-The gesture_detection is done in nodejs, because the classifier lib works nicely, could not find easy alternatives for c++.
+The gesture_detection is done in nodejs, because the classifier lib based on finger curling works nicely, could not find easy alternatives for c++.
+
+- The classifier only uses the keypoints of right hands, although sometime a left hand might be missdetected as a right hand by OpenPose
+- The classifier will simply pick the first two persons from the Openpose output, so make sure no other person is seen in the background, otherwise it might be detected as a player.
+- Player 1 is always assumed to be on the left side, and Player 2 on the right, if the players switch positions mid-game, then they are swapping their scores as well.
 
 ## Requirements
 - ROS Noetic
 - Nodejs v16
 - [Openpose](https://github.com/CMU-Perceptual-Computing-Lab/openpose)
 - [ros_openpose](https://github.com/ravijo/ros_openpose)
-- [TeMoto](https://github.com/temoto-framework/temoto/wiki) (coming soon)
+- [TeMoto](https://github.com/temoto-framework/temoto/wiki)
 - rosbridge (`sudo apt install ros-noetic-rosbridge-server`)
 - sox
 - libsox-fmt-mp3
