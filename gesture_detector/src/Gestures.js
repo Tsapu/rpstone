@@ -1,6 +1,7 @@
 //
 // Definitions for the three gestures used in the game based on finger curling
 //
+// https://github.com/andypotato/rock-paper-scissors/blob/master/src/js/Gestures.js
 
 const { GestureDescription, Finger, FingerCurl } = require('fingerpose');
 
