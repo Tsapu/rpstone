@@ -1,6 +1,12 @@
-# RPSTONE
+# RPSTONE, the rock-paper-scissors game
 
 ## What is this?
+
+An ancient game with a twist. The referee is a robot, and you must accept its judgement. The game is played between two players, each of them has a robot (a simulated one) that races each other. The robots are controlled by playing rock-paper-scissors. The referee will decide who wins, and the robot of the winner gets to advance (drive forward).
+
+![Scrapapa2](./doc/arch.png)
+
+## How does it work?
 
 ![Scrapapa](./doc/mediapipe_finger_keypoints.png)
 
@@ -25,7 +31,21 @@ cd gesture_detector/src && npm install
 catkin build
 ```
 
-### usage example
+# How to run
+
+If you somehow managed to get all the dependencies installed, then there is a chance you will be able to run the game
+
+1) Launch rpstone temoto:
+```bash
+roslaunch rpstone temoto.launch temoto_namespace:=rpstone
+```
+
+2) Start the game by publishing the following URMF:
+```bash
+rosrun temoto_action_engine umrf_graph_publisher rps_game.umrfg.json rpstone
+```
+
+### Gesture classifier components can be run individually
 ```bash
 roslaunch usb_cam usb_cam-test.launch
 ```
@@ -42,7 +62,8 @@ roslaunch gesture_detector classifier_nodepth.launch
 
 ```bash
 # Bag that contains /frame messages containing hand keypoints (Openpose) and /rps_gestures from the classifer
-rosbag play --loop rpstone/bags/rps.bag
+# rosbag play --loop rpstone/bags/rps.bag
+roslaunch rpstone bag_gestures.launch
 ```
 
 ## Ok, let's temoto
@@ -50,7 +71,12 @@ rosbag play --loop rpstone/bags/rps.bag
 roslaunch rpstone temoto.launch temoto_namespace:=rpstone
 ```
 
-Launch the component pipe:
+Start the game by publishing the following URMF
+```bash
+rosrun temoto_action_engine umrf_graph_publisher rps_game.umrfg.json rpstone
+```
+
+To launch just the component pipe:
 ```bash
 rosrun temoto_action_engine umrf_graph_publisher ta_rps_pipe.umrfg.json rpstone
 ```
@@ -59,12 +85,15 @@ To work with a rosbag instead of OpenPose, plase make sure that the main pipe me
 
 <br/>
 
-![Scrapapa2](./doc/arch.png)
 ![Scrapapa3](./doc/pipe.png)
 
-## Todo (updated: 11.06)
+## Todo (updated: 22.06)
 - [x] Add gesture classifier node
 - [x] Implement component pipe
+- [x] Add a graph for robot init and viz actions
+- [x] Main game logic
+- [x] SFX
+- [ ] Try it with physical robots
 
 
 <br/>
