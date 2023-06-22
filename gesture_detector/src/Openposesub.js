@@ -3,8 +3,6 @@
 // import '@tensorflow/tfjs-backend-webgl';
 
 // import the FingerPose gesture estimator + our predefined gestures
-// import { GestureEstimator } from 'fingerpose';
-// import { RockGesture, PaperGesture, ScissorsGesture } from './Gestures';
 
 const { GestureEstimator } = require('fingerpose');
 const { RockGesture, PaperGesture, ScissorsGesture } = require('./Gestures');
@@ -12,7 +10,6 @@ const { RockGesture, PaperGesture, ScissorsGesture } = require('./Gestures');
 const knownGestures = [RockGesture, PaperGesture, ScissorsGesture];
 const gestureEstimator = new GestureEstimator(knownGestures);
 
-// import ROSLIB from 'roslib';
 const ROSLIB = require('roslib');
 
 // const SINGLE_MODE = process.argv[2] === "single";
@@ -90,10 +87,6 @@ listener.subscribe(async (message) => {
 	// assume two persons only, ignore everything else, hope nothing comes from the background
 	let msg, gesture1, gesture2, hand1, hand2, x_pos1, x_pos2, hand1_leftest;
 
-	// msg = prepMsg("", "");
-	// publisher.publish(msg);
-	// await new Promise(resolve => setTimeout(resolve, 200));
-
 	if (persons.length === 0) {
 		msg = prepMsg("", "");
 	  publisher.publish(msg);
@@ -131,11 +124,6 @@ listener.subscribe(async (message) => {
 		}
 	}
 
-	// if (gesture !== '') {
-	// 	console.log(gesture);
-	// 	const message = prepMsg(gesture);
-	// 	publisher.publish(message);
-	// }
 });
 }
 

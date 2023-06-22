@@ -8,8 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   temoto_action_assistant
-  temoto_component_manager
-  ros_openpose
+  ros_openpose # comment this out if you don't have it and run from bag
   std_msgs
   message_generation
 )
@@ -34,11 +33,5 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(hand_detector src/rpstone.cpp)
-target_link_libraries(hand_detector ${catkin_LIBRARIES})
-add_executable(component_manager src/component_manager.cpp)
-target_link_libraries(component_manager ${catkin_LIBRARIES})
-add_executable(winner src/winner.cpp)
-target_link_libraries(winner ${catkin_LIBRARIES})
 add_executable(rptwist src/twist_cmd.cpp)
 target_link_libraries(rptwist ${catkin_LIBRARIES})

@@ -1,5 +1,5 @@
 <launch>
-    <arg name="gestures" default="/random_thing_2" />
+    <arg name="gestures" default="/rps_gestures" />
 	<node name="rosbag" pkg="rosbag" type="play" args="--loop $(find rpstone)/bags/rps.bag">
 		<remap from="/rps_gestures" to="$(arg gestures)"/>
 	</node>
